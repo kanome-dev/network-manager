@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>ネットワーク機器管理システム</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; background-color: #f4f7f6; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #333; text-align: center; margin-bottom: 20px; }
+        /* ログイン情報のスタイル */
+        .auth-info { text-align: right; margin-bottom: 20px; font-size: 0.9em; padding: 10px; background: #f8f9fa; border-radius: 5px; }
+        form { display: flex; gap: 10px; margin-bottom: 30px; background: #eee; padding: 20px; border-radius: 5px; }
+        input { padding: 10px; border: 1px solid #ccc; border-radius: 5px; flex: 1; }
+        button { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; color: white; }
+        .btn-add { background-color: #28a745; }
+        .btn-delete { background-color: #dc3545; padding: 5px 10px; font-size: 0.8em; }
+        .btn-logout { background-color: #6c757d; padding: 5px 10px; margin-left: 10px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #007bff; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="auth-info">
+        ログイン中: <span style="font-weight: bold;" sec:authentication="name"></span>
+        <form th:action="@{/logout}" method="post" style="display: inline; background: none; padding: 0; margin: 0; box-shadow: none;">
+            <button type="submit" class="btn-logout">ログアウト</button>
+        </form>
+    </div>
+
+    <h1>ネットワーク機器 登録・一覧</h1>
+
+    <form th:action="@{/add}" method="post">
+        <input type="text" name="name" placeholder="機器名 (例: ルーターA)" required>
+        <input type="text" name="ipAddress" placeholder="IPアドレス (例: 192.168.1.1)" required>
+        <input type="text" name="location" placeholder="設置場所 (例: 福島第1センター)" required>
+        <button type="submit" class="btn-add">登録</button>
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>機器名</th>
+            <th>IPアドレス</th>
+            <th>設置場所</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="device : ${devices}">
+            <td th:text="${device.id}"></td>
+            <td th:text="${device.name}"></td>
+            <td th:text="${device.ipAddress}"></td>
+            <td th:text="${device.location}"></td>
+            <td>
+                <form th:action="@{/delete/{id}(id=${device.id})}" method="post" style="margin:0; background:none; padding:0; box-shadow:none;">
+                    <button type="submit" class="btn-delete">削除</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
