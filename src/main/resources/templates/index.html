@@ -34,8 +34,11 @@
 
     <form th:action="@{/add}" method="post">
         <input type="text" name="name" placeholder="機器名 (例: ルーターA)" required>
-        <input type="text" name="ipAddress" placeholder="IPアドレス (例: 192.168.1.1)" required>
-        <input type="text" name="location" placeholder="設置場所 (例: 福島第1センター)" required>
+
+        <input type="text" name="ipAddress" placeholder="IPアドレス (例: 10.x.x.xxx)" required>
+
+        <input type="text" name="location" placeholder="設置場所 (例: 〇〇データセンター)" required>
+
         <button type="submit" class="btn-add">登録</button>
     </form>
 

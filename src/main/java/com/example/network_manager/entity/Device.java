@@ -12,9 +12,9 @@ public class Device {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;          // 自動で割り振られる番号
 
-    private String name;      // 機器名（例：基幹ルーター）
-    private String ipAddress; // IPアドレス（例：192.168.1.1）
-    private String location;  // 設置場所（例：福島データセンター）
+    private String name;      // 機器名（例：ルーターA）
+    private String ipAddress; // IPアドレス（例：10.x.x.xxx）
+    private String location;  // 設置場所（例：〇〇データセンター）
 
     // ここから下は、プログラムがデータを読み書きするための「部品」です
     public Long getId() { return id; }
